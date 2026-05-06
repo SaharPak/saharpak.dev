@@ -1,0 +1,63 @@
+---
+const links = [
+  {
+    label: "LinkedIn",
+    href: "https://www.linkedin.com/in/saharpak/",
+    handle: "linkedin.com/in/saharpak",
+  },
+  {
+    label: "GitHub",
+    href: "https://github.com/SaharPak",
+    handle: "github.com/SaharPak",
+  },
+  {
+    label: "Medium",
+    href: "https://medium.com/@saharlead",
+    handle: "medium.com/@saharlead",
+  },
+  {
+    label: "YouTube",
+    href: "https://www.youtube.com/@TechImmigrants",
+    handle: "@TechImmigrants",
+  },
+];
+---
+
+<section id="contact" class="px-6 py-20 border-t border-line bg-ink text-cream-soft">
+  <div class="max-w-5xl mx-auto">
+    <p class="font-mono text-sm text-terracotta uppercase tracking-wider mb-4">
+      Contact
+    </p>
+
+    <h2 class="text-3xl md:text-5xl font-bold leading-tight mb-6">
+      Let's build something together.
+    </h2>
+
+    <p class="text-lg text-cream/80 max-w-2xl leading-relaxed mb-12">
+      Open to product roles in developer tools, AI infrastructure, and
+      open-source ecosystems. Also happy to chat about communities,
+      open-source projects, or anything builder-adjacent.
+    </p>
+
+    <div class="grid sm:grid-cols-2 gap-4">
+      {
+        links.map((link) => (
+          <a
+            href={link.href}
+            target="_blank"
+            rel="noopener"
+            class="group flex items-center justify-between p-5 border border-cream/20 rounded-lg hover:border-terracotta hover:bg-cream/5 transition-all"
+          >
+            <div>
+              <p class="font-bold">{link.label}</p>
+              <p class="text-sm text-cream/60 font-mono">{link.handle}</p>
+            </div>
+            <span class="text-cream/40 group-hover:text-terracotta group-hover:translate-x-1 transition-all">
+              →
+            </span>
+          </a>
+        ))
+      }
+    </div>
+  </div>
+</section>

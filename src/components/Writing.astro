@@ -1,0 +1,74 @@
+---
+const posts = [
+  {
+    title: "How Wolt Built an Autonomous Coding Agent That Opens Its Own PRs",
+    description:
+      "What I learned at a Helsinki meetup about context engineering, and why the architecture matters more than the model.",
+    href: "https://medium.com/@saharlead",
+    date: "May 2026",
+    tag: "AI Architecture",
+  },
+  {
+    title: "Five Concerns, Five Projects, One Box",
+    description:
+      "Our HomeOps architecture: how I bridged five everyday problems into one self-hosted home cloud.",
+    href: "https://medium.com/@saharlead",
+    date: "Apr 2026",
+    tag: "HomeOps",
+  },
+  {
+    title: "The AI Couple: 40 Sensors, 18 Automations in Our HomeOps Project",
+    description:
+      "What happens when a Product Manager marries a Cloud Engineer and they automate everything that annoys them.",
+    href: "https://medium.com/@saharlead/the-ai-couple-40-sensors-18-automations-in-our-homeops-project-ede75a941602",
+    date: "Apr 2026",
+    tag: "HomeOps",
+  },
+];
+---
+
+<section id="writing" class="px-6 py-20 border-t border-line">
+  <div class="max-w-5xl mx-auto">
+    <div class="flex items-baseline justify-between mb-12 flex-wrap gap-4">
+      <div>
+        <p class="font-mono text-sm text-terracotta-deep uppercase tracking-wider mb-4">
+          Writing
+        </p>
+        <h2 class="text-3xl md:text-4xl font-bold text-ink leading-tight">
+          Recent posts.
+        </h2>
+      </div>
+      <a
+        href="https://medium.com/@saharlead"
+        target="_blank"
+        rel="noopener"
+        class="text-sm text-terracotta-deep hover:text-ink transition-colors"
+      >
+        All posts on Medium →
+      </a>
+    </div>
+
+    <div class="space-y-6">
+      {
+        posts.map((post) => (
+          <a
+            href={post.href}
+            target="_blank"
+            rel="noopener"
+            class="block group p-6 border border-line rounded-lg hover:border-terracotta hover:bg-cream/50 transition-all"
+          >
+            <div class="flex items-center gap-3 text-xs font-mono text-muted mb-2">
+              <span>{post.date}</span>
+              <span>·</span>
+              <span class="text-terracotta-deep">{post.tag}</span>
+            </div>
+            <h3 class="text-xl font-bold text-ink group-hover:text-terracotta-deep transition-colors mb-2">
+              {post.title}
+            </h3>
+            <p class="text-body leading-relaxed">{post.description}</p>
+          </a>
+        ))
+      }
+    </div>
+  </div>
+</section>

@@ -1,0 +1,43 @@
+---
+const links = [
+  { href: "#about", label: "About" },
+  { href: "#projects", label: "Projects" },
+  { href: "#writing", label: "Writing" },
+  { href: "#contact", label: "Contact" },
+];
+---
+
+<nav
+  class="sticky top-0 z-50 backdrop-blur-md bg-cream-soft/80 border-b border-line"
+>
+  <div class="max-w-5xl mx-auto px-6 py-4 flex items-center justify-between">
+    <a
+      href="/"
+      class="font-bold text-lg tracking-tight text-ink hover:text-terracotta-deep transition-colors"
+    >
+      sahar<span class="text-terracotta">.dev</span>
+    </a>
+
+    <div class="hidden md:flex items-center gap-8">
+      {
+        links.map((link) => (
+          <a
+            href={link.href}
+            class="text-sm text-muted hover:text-ink transition-colors"
+          >
+            {link.label}
+          </a>
+        ))
+      }
+    </div>
+
+    <a
+      href="https://github.com/SaharPak"
+      target="_blank"
+      rel="noopener"
+      class="text-sm text-muted hover:text-ink transition-colors hidden sm:inline"
+    >
+      GitHub →
+    </a>
+  </div>
+</nav>

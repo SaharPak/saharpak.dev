@@ -1,0 +1,94 @@
+---
+const stack = [
+  "Cursor",
+  "Claude Code",
+  "Claude API",
+  "n8n",
+  "Cloudflare Pages",
+  "Cloudflare Functions",
+  "Docker",
+  "Home Assistant",
+  "TypeScript",
+  "Auth0",
+  "REST APIs",
+];
+---
+
+<section id="about" class="px-6 py-20 border-t border-line">
+  <div class="max-w-5xl mx-auto">
+    <p class="font-mono text-sm text-terracotta-deep uppercase tracking-wider mb-4">
+      About
+    </p>
+
+    <div class="grid md:grid-cols-2 gap-12 items-start">
+      <div class="space-y-6">
+        <h2 class="text-3xl md:text-4xl font-bold text-ink leading-tight">
+          I bridge product thinking with hands-on building.
+        </h2>
+
+        <div class="space-y-4 text-lg text-body leading-relaxed">
+          <p>
+            For the last decade I've worked across product management,
+            integrations, and platform architecture — at companies like
+            Happeo (B2B SaaS, 500+ enterprise clients) and a Unicorn B2B
+            SaaS where I led a company-wide Auth0 integration across
+            10+ teams.
+          </p>
+          <p>
+            But what I love most is the building. Shipping
+            <a
+              href="https://cvroast.dev"
+              target="_blank"
+              rel="noopener"
+              class="text-terracotta-deep underline decoration-2 underline-offset-2 hover:decoration-4 transition-all"
+            >cvroast.dev</a> with Claude API and Cloudflare. Coordinating
+            an open-source community to scale it. Automating a
+            40-sensor home with my husband. Helping thousands of people
+            navigate tech careers through Tech Immigrants.
+          </p>
+          <p>
+            I work where product, AI, automation, and community
+            overlap. That's the lane.
+          </p>
+        </div>
+      </div>
+
+      <div class="space-y-6">
+        <div>
+          <p class="font-mono text-xs text-muted uppercase tracking-wider mb-3">
+            Stack & Tools
+          </p>
+          <div class="flex flex-wrap gap-2">
+            {
+              stack.map((item) => (
+                <span class="px-3 py-1 bg-cream border border-line rounded-full text-sm text-ink">
+                  {item}
+                </span>
+              ))
+            }
+          </div>
+        </div>
+
+        <div>
+          <p class="font-mono text-xs text-muted uppercase tracking-wider mb-3">
+            Recent Recognition
+          </p>
+          <ul class="space-y-2 text-sm text-body">
+            <li class="flex gap-2">
+              <span class="text-terracotta-deep">▸</span>
+              ITU Young Innovator Competition Winner (2014)
+            </li>
+            <li class="flex gap-2">
+              <span class="text-terracotta-deep">▸</span>
+              Canada Startup Visa (2019)
+            </li>
+            <li class="flex gap-2">
+              <span class="text-terracotta-deep">▸</span>
+              50K+ followers across YouTube and Telegram
+            </li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
