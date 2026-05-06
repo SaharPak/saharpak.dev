@@ -1,4 +1,4 @@
-# sahar.dev
+# saharpak.dev
 
 Personal website for Sahar Pakseresht — Open-source builder & Product Manager.
 
@@ -7,7 +7,7 @@ Personal website for Sahar Pakseresht — Open-source builder & Product Manager.
 - **Framework:** [Astro](https://astro.build/)
 - **Styling:** [Tailwind CSS](https://tailwindcss.com/)
 - **Hosting:** [Cloudflare Pages](https://pages.cloudflare.com/)
-- **Domain:** sahar.dev
+- **Domain:** saharpak.dev
 
 ## Development
 
@@ -32,7 +32,7 @@ Output goes to `./dist/` — ready to deploy to Cloudflare Pages.
 2. Connect the repo to Cloudflare Pages
 3. Set build command: `npm run build`
 4. Set output directory: `dist`
-5. Connect the `sahar.dev` domain in Cloudflare DNS
+5. Connect the `saharpak.dev` domain in Cloudflare DNS
 
 ## License
 
