@@ -1,127 +1,89 @@
 ---
-const projects = [
-  {
-    name: "cvroast.dev",
-    tagline: "AI-powered CV scoring tool",
-    description:
-      "An open-source AI tool that scores your CV across 6 dimensions against 2026 hiring research. No signup, free, MIT licensed. Built for the Tech Immigrants community.",
-    stack: ["Claude API", "Cloudflare Pages", "Cloudflare Functions", "MIT"],
-    links: [
-      { label: "Visit", href: "https://cvroast.dev" },
-      { label: "GitHub", href: "https://github.com/SaharPak/cvroast-dev" },
-    ],
-    accent: "terracotta",
-  },
-  {
-    name: "TechImmigrants/cv-builder",
-    tagline: "Open-source community CV builder",
-    description:
-      "Scaling cvroast.dev into a contributor-driven open-source product. Recruiting and coordinating a team of developers, designers, and product people from the Tech Immigrants community to build it together.",
-    stack: ["TypeScript", "Open Source", "Community-led"],
-    links: [
-      {
-        label: "GitHub",
-        href: "https://github.com/TechImmigrants/cv-builder",
-      },
-    ],
-    accent: "teal",
-  },
-  {
-    name: "Tech Immigrants Community",
-    tagline: "50K+ followers across platforms",
-    description:
-      "Founded a tech career community from a single tweet. Grew to 50K+ followers across YouTube and Telegram with 200+ video episodes on career advice, relocation, and tech industry insights. Zero paid promotion.",
-    stack: ["Content", "Community", "Podcast"],
-    links: [
-      { label: "YouTube", href: "https://www.youtube.com/@TechImmigrants" },
-      { label: "Telegram", href: "https://t.me/TwitterImmigrant" },
-    ],
-    accent: "sage",
-  },
-  {
-    name: "Home Cloud",
-    tagline: "Self-hosted smart home automation",
-    description:
-      "Co-built with my husband: 40 sensors, 18+ automations, spot-price energy optimization, baby environment control. Zero cloud subscriptions — fully self-hosted.",
-    stack: ["Home Assistant", "Docker", "Ansible", "Zigbee"],
-    links: [],
-    accent: "purple",
-  },
-  {
-    name: "AI-Powered PM Dashboard",
-    tagline: "Custom dashboard for cross-team insights",
-    description:
-      "Built with Claude Code. Aggregates stakeholder insights from Confluence and Slack across 10+ teams, surfacing blockers and patterns that manual tracking missed.",
-    stack: ["Claude Code", "Cursor", "Confluence API", "Slack API"],
-    links: [],
-    accent: "terracotta",
-  },
-  {
-    name: "KyzDigital C-Level Agents",
-    tagline: "Multi-agent AI platform contributor",
-    description:
-      "Contributing to an AI agent platform with 3 autonomous agents (Ops, Marketing, BD). Using it for Tech Immigrants community operations.",
-    stack: ["Multi-agent AI", "ClickUp", "Apollo", "Telegram"],
-    links: [],
-    accent: "teal",
-  },
-];
+import { projectCategories, type ProjectStatus } from "../config/site";
 
-const accentClasses = {
-  terracotta: "border-l-terracotta",
-  teal: "border-l-teal-deep",
-  sage: "border-l-sage-deep",
-  purple: "border-l-purple-soft",
+const statusStyles: Record<ProjectStatus, string> = {
+  Live: "bg-sage-deep/15 text-sage-deep border-sage-deep/30",
+  "Open Source": "bg-teal-deep/12 text-teal-deep border-teal-deep/30",
+  Pilot: "bg-terracotta/15 text-terracotta-deep border-terracotta/40",
+  Demo: "bg-purple-soft/15 text-purple-soft border-purple-soft/40",
+  "Internal Tool": "bg-cream text-muted border-line",
+  Experiment: "bg-cream text-muted border-line",
+  "Coming Soon": "bg-cream text-muted border-line",
+  Idea: "bg-cream text-muted border-line",
 };
 ---
 
 <section id="projects" class="px-6 py-20 border-t border-line bg-cream/30">
-  <div class="max-w-5xl mx-auto">
-    <p class="font-mono text-sm text-terracotta-deep uppercase tracking-wider mb-4">
-      Projects
+  <div class="max-w-6xl mx-auto">
+    <p
+      class="font-mono text-sm text-terracotta-deep uppercase tracking-wider mb-4"
+    >
+      Projects & Products
     </p>
 
-    <h2 class="text-3xl md:text-4xl font-bold text-ink leading-tight mb-12">
+    <h2 class="text-3xl md:text-4xl font-bold text-ink leading-tight mb-3">
       What I'm building.
     </h2>
+    <p class="text-lg text-muted max-w-2xl mb-12">
+      Grouped by where they fit in the ecosystem. Status labels are honest:
+      some are live, many are early experiments.
+    </p>
 
-    <div class="space-y-8">
+    <div class="space-y-16">
       {
-        projects.map((project) => (
-          <article
-            class={`bg-cream-soft border-l-4 ${accentClasses[project.accent as keyof typeof accentClasses]} p-6 md:p-8 rounded-r-lg shadow-sm hover:shadow-md transition-shadow`}
-          >
-            <div class="flex flex-wrap items-baseline justify-between gap-2 mb-2">
+        projectCategories.map((category) => (
+          <div>
+            <div class="mb-6">
               <h3 class="text-xl md:text-2xl font-bold text-ink">
-                {project.name}
+                {category.title}
               </h3>
-              {project.links.length > 0 && (
-                <div class="flex gap-3">
-                  {project.links.map((link) => (
-                    <a
-                      href={link.href}
-                      target="_blank"
-                      rel="noopener"
-                      class="text-sm text-terracotta-deep hover:text-ink transition-colors"
-                    >
-                      {link.label} →
-                    </a>
-                  ))}
-                </div>
-              )}
+              <p class="text-muted mt-1">{category.blurb}</p>
             </div>
-            <p class="text-muted text-sm font-medium mb-3 italic">
-              {project.tagline}
-            </p>
-            <p class="text-body leading-relaxed mb-4">{project.description}</p>
-            <div class="flex flex-wrap gap-2">
-              {project.stack.map((tech) => (
-                <span class="text-xs font-mono text-muted bg-cream px-2 py-1 rounded">
-                  {tech}
-                </span>
+
+            <div class="grid md:grid-cols-2 gap-5">
+              {category.projects.map((project) => (
+                <article class="flex flex-col bg-cream-soft border border-line rounded-xl p-6 hover:shadow-md hover:border-terracotta/40 transition-all">
+                  <div class="flex items-start justify-between gap-3 mb-2">
+                    <h4 class="text-lg font-bold text-ink">{project.name}</h4>
+                    <span
+                      class={`shrink-0 text-xs font-mono font-medium px-2.5 py-1 rounded-full border ${statusStyles[project.status]}`}
+                    >
+                      {project.status}
+                    </span>
+                  </div>
+
+                  <p class="text-body leading-relaxed">{project.description}</p>
+
+                  <p class="text-sm text-muted italic mt-3">
+                    Why: {project.why}
+                  </p>
+
+                  {(project.links?.length || project.cta) && (
+                    <div class="flex flex-wrap gap-4 mt-4 pt-4 border-t border-line">
+                      {project.links?.map((link) => (
+                        <a
+                          href={link.href}
+                          target="_blank"
+                          rel="noopener"
+                          class="text-sm font-medium text-terracotta-deep hover:text-ink transition-colors"
+                        >
+                          {link.label} →
+                        </a>
+                      ))}
+                      {project.cta && (
+                        <a
+                          href={project.cta.href}
+                          class="text-sm font-medium text-teal-deep hover:text-ink transition-colors"
+                        >
+                          {project.cta.label} →
+                        </a>
+                      )}
+                    </div>
+                  )}
+                </article>
               ))}
             </div>
-          </article>
+          </div>
         ))
       }
     </div>

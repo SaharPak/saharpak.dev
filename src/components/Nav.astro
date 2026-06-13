@@ -1,26 +1,21 @@
 ---
-const links = [
-  { href: "#about", label: "About" },
-  { href: "#projects", label: "Projects" },
-  { href: "#writing", label: "Writing" },
-  { href: "#contact", label: "Contact" },
-];
+import { nav } from "../config/site";
 ---
 
 <nav
   class="sticky top-0 z-50 backdrop-blur-md bg-cream-soft/80 border-b border-line"
 >
-  <div class="max-w-5xl mx-auto px-6 py-4 flex items-center justify-between">
+  <div class="max-w-6xl mx-auto px-6 py-4 flex items-center justify-between">
     <a
-      href="/"
+      href="#top"
       class="font-bold text-lg tracking-tight text-ink hover:text-terracotta-deep transition-colors"
     >
       saharpak<span class="text-terracotta">.dev</span>
     </a>
 
-    <div class="hidden md:flex items-center gap-8">
+    <div class="hidden md:flex items-center gap-7">
       {
-        links.map((link) => (
+        nav.links.map((link) => (
           <a
             href={link.href}
             class="text-sm text-muted hover:text-ink transition-colors"
@@ -32,12 +27,10 @@ const links = [
     </div>
 
     <a
-      href="https://github.com/SaharPak"
-      target="_blank"
-      rel="noopener"
-      class="text-sm text-muted hover:text-ink transition-colors hidden sm:inline"
+      href="#collaborate"
+      class="text-sm font-medium px-4 py-2 rounded-full bg-ink text-cream-soft hover:bg-terracotta-deep transition-colors"
     >
-      GitHub →
+      Work with me
     </a>
   </div>
 </nav>

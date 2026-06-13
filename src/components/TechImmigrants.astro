@@ -1,0 +1,51 @@
+---
+import { techImmigrants } from "../config/site";
+---
+
+<section
+  id="tech-immigrants"
+  class="px-6 py-20 border-t border-line bg-cream/30"
+>
+  <div class="max-w-6xl mx-auto">
+    <p
+      class="font-mono text-sm text-terracotta-deep uppercase tracking-wider mb-4"
+    >
+      Tech Immigrants
+    </p>
+
+    <h2 class="text-3xl md:text-4xl font-bold text-ink leading-tight max-w-3xl">
+      {techImmigrants.heading}
+    </h2>
+
+    <p class="text-lg text-body leading-relaxed max-w-3xl mt-6">
+      {techImmigrants.intro}
+    </p>
+
+    <div class="grid sm:grid-cols-3 gap-4 mt-10">
+      {
+        techImmigrants.channels.map((channel) => (
+          <a
+            href={channel.href}
+            target="_blank"
+            rel="noopener"
+            class="group block p-6 bg-cream-soft border border-line rounded-xl hover:border-terracotta hover:shadow-sm transition-all"
+          >
+            <p class="font-bold text-ink group-hover:text-terracotta-deep transition-colors">
+              {channel.label}
+            </p>
+            <p class="text-sm text-muted leading-relaxed mt-2">
+              {channel.description}
+            </p>
+          </a>
+        ))
+      }
+    </div>
+
+    <p
+      class="mt-8 text-sm text-sage-deep font-medium flex items-start gap-2 max-w-2xl"
+    >
+      <span aria-hidden="true">●</span>
+      {techImmigrants.trustNote}
+    </p>
+  </div>
+</section>

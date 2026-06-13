@@ -1,26 +1,52 @@
 ---
 import "../styles/global.css";
+import { site, person } from "../config/site";
 
 interface Props {
   title?: string;
   description?: string;
 }
 
-const {
-  title = "Sahar Pakseresht — Open-source builder & Product Manager",
-  description = "Open-source builder & product manager shipping developer-facing AI tools and integrations. Founder of Tech Immigrants (50K+ community).",
-} = Astro.props;
+const { title = site.title, description = site.description } = Astro.props;
+
+const canonical = site.url;
+const ogImage = new URL(site.ogImage, site.url).href;
+
+const personSchema = {
+  "@context": "https://schema.org",
+  "@type": "Person",
+  name: person.name,
+  url: site.url,
+  jobTitle: person.roles.join(", "),
+  description: site.description,
+  address: {
+    "@type": "PostalAddress",
+    addressLocality: "Espoo",
+    addressCountry: "FI",
+  },
+  sameAs: [
+    "https://www.linkedin.com/in/saharpak/",
+    "https://github.com/SaharPak",
+    "https://www.youtube.com/@TechImmigrants",
+  ],
+};
 ---
 
 <!doctype html>
-<html lang="en">
+<html lang={site.locale}>
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <meta name="description" content={description} />
     <meta name="generator" content={Astro.generator} />
 
+    <title>{title}</title>
+    <meta name="description" content={description} />
+    <meta name="author" content={person.name} />
+    <link rel="canonical" href={canonical} />
+
     <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+    <link rel="icon" type="image/x-icon" href="/favicon.ico" />
+
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link
@@ -28,16 +54,28 @@ const {
       rel="stylesheet"
     />
 
+    <meta property="og:type" content="website" />
+    <meta property="og:site_name" content="saharpak.dev" />
     <meta property="og:title" content={title} />
     <meta property="og:description" content={description} />
-    <meta property="og:type" content="website" />
-    <meta property="og:url" content="https://saharpak.dev" />
+    <meta property="og:url" content={canonical} />
+    <meta property="og:image" content={ogImage} />
+    <meta property="og:image:width" content="1200" />
+    <meta property="og:image:height" content="630" />
+    <meta property="og:locale" content="en_US" />
 
     <meta name="twitter:card" content="summary_large_image" />
     <meta name="twitter:title" content={title} />
     <meta name="twitter:description" content={description} />
+    <meta name="twitter:image" content={ogImage} />
 
-    <title>{title}</title>
+    <meta name="theme-color" content="#FAF1E4" />
+
+    <script
+      is:inline
+      type="application/ld+json"
+      set:html={JSON.stringify(personSchema)}
+    />
   </head>
   <body>
     <slot />
