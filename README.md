@@ -1,8 +1,8 @@
 # saharpak.dev
 
-Personal hub and product-builder portfolio for **Sahar Pakseresht**, founder of Tech Immigrants.
+Personal builder portfolio for **Sahar Pakseresht**, product manager, community builder, and founder of Tech Immigrants.
 
-The site tells one story: community data leads to real problems, which lead to useful tools, trust-safe monetization, and impact. It is a static marketing site with no backend, no auth, and no payments.
+A short, visual, single-page site: who I am, what I build, and how to reach me. It is a static site with no backend, no auth, and no payments.
 
 ## Tech stack
 
@@ -47,32 +47,45 @@ Almost everything is driven by a single file:
 src/config/site.ts
 ```
 
-It holds personal info, hero copy, social links, the project list and statuses, community stats, CTAs, speaking items, and collaboration options. You should rarely need to touch the components in `src/components/`.
+It holds personal info, hero copy, identity tags, featured projects, community stats, contact settings, and social links. You should rarely need to touch the components in `src/components/`.
 
-### How to add a new project
+### How to add your photo
 
-1. Open `src/config/site.ts`.
-2. Find `projectCategories` and pick the right category (`career`, `builder`, `automation`, `personal`).
-3. Add a project object to that category's `projects` array:
+1. Drop a square image at `public/sahar.png` (any name works, just match the config).
+2. In `src/config/site.ts`, set `profile.available` to `true` (and update `profile.photo` if you used a different filename).
+
+Until a real photo is added, the hero shows a tasteful gradient placeholder that says "Photo coming soon".
+
+### How to add or edit a featured project
+
+The homepage shows a short, curated set. Open `src/config/site.ts`, find `featuredProjects`, and add or edit an entry:
 
 ```ts
 {
   name: "My New Tool",
   status: "Experiment", // see allowed statuses below
-  description: "One clear sentence about what it does.",
-  why: "The real problem this came from.",
-  links: [{ label: "GitHub", href: "https://github.com/..." }], // optional
-  cta: { label: "Learn more", href: "#contact" }, // optional
+  blurb: "One short sentence (under ~20 words).",
+  accent: "terracotta", // terracotta | teal | sage | purple
+  cta: { label: "Visit", href: "https://...", external: true }, // optional
 }
 ```
 
-Allowed `status` values: `Live`, `Open Source`, `Pilot`, `Demo`, `Internal Tool`, `Experiment`, `Coming Soon`, `Idea`. Each maps to a badge color automatically.
+Allowed `status` values: `Live`, `Open Source`, `Pilot`, `Demo`, `Internal Tool`, `Experiment`, `Coming Soon`, `Idea`. Each maps to a badge color automatically. A card without a `cta` shows a muted "Coming soon".
 
-### How to update stats
+### How to update community stats
 
-Edit the `communityIntelligence.stats` array in `src/config/site.ts`. Each item is `{ value, label }`. Keep the privacy note honest: insights are aggregate and anonymized.
+Edit the `community.stats` array in `src/config/site.ts` (3 stats). Each is `{ value, label }`. Keep the privacy note honest: numbers are aggregate and anonymized.
 
-When the Community Intelligence report is public, set `communityIntelligence.report.available` to `true` and add the `href`.
+### Contact settings (safe by default)
+
+In `src/config/site.ts`, the `contact` object controls what is shown. Nothing fake is ever displayed:
+
+- `publicEmail` + `emailPublished: true` — shows email / mailto actions. Leave `emailPublished: false` to hide email; the site falls back to "Connect on LinkedIn".
+- `calendlyUrl` — set a real URL to show a "Book a call" button. Empty = hidden.
+- `primaryContactMethod` — `"linkedin"` or `"email"`.
+- `linkedinUrl` — the confirmed LinkedIn link used as the safe default.
+
+X / Twitter is intentionally omitted until a real handle is confirmed (add it to `socials`).
 
 ## SEO & social preview
 
@@ -87,9 +100,10 @@ None are required for the static version. See `.env.example`.
 ## Known limitations
 
 - Content is static and hand-maintained (no CMS).
-- The Community Intelligence report is a placeholder until a public version is linked.
-- Some project links point to sections (`#projects`, `#contact`) until public URLs exist.
-- Stats are aggregate community signals, not live analytics.
+- The profile photo is a placeholder until `public/sahar.jpg` is added and `profile.available` is set to `true`.
+- Public email, Calendly, and X/Twitter are hidden until real values are confirmed in config.
+- Some project cards show "Coming soon" until public URLs exist.
+- Community stats are aggregate signals, not live analytics.
 
 ## License
 

@@ -1,0 +1,15 @@
+---
+import { identityTags } from "../config/site";
+---
+
+<section class="px-6 pb-8">
+  <div class="max-w-5xl mx-auto flex flex-wrap gap-2.5">
+    {
+      identityTags.map((tag) => (
+        <span class="px-4 py-1.5 bg-cream border border-line rounded-full text-sm font-medium text-ink">
+          {tag}
+        </span>
+      ))
+    }
+  </div>
+</section>

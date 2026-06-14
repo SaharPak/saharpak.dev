@@ -1,0 +1,68 @@
+---
+import { workWithMe, contact, emailAvailable } from "../config/site";
+
+type Btn = { label: string; href: string; primary?: boolean; external?: boolean };
+
+const mailto = (subject: string) =>
+  `mailto:${contact.publicEmail}?subject=${encodeURIComponent(subject)}`;
+
+const buttons: Btn[] = [];
+
+// Primary contact action — never fake.
+if (emailAvailable && contact.primaryContactMethod === "email") {
+  buttons.push({ label: "Email me", href: `mailto:${contact.publicEmail}`, primary: true });
+  buttons.push({ label: "Connect on LinkedIn", href: contact.linkedinUrl, external: true });
+} else {
+  buttons.push({ label: "Connect on LinkedIn", href: contact.linkedinUrl, primary: true, external: true });
+  if (emailAvailable) {
+    buttons.push({ label: "Email me", href: `mailto:${contact.publicEmail}` });
+  }
+}
+
+// Optional booking — only if a real Calendly URL is configured.
+if (contact.calendlyUrl.length > 0) {
+  buttons.push({ label: "Book a call", href: contact.calendlyUrl, external: true });
+}
+
+// Intent actions route to email when available, otherwise LinkedIn.
+buttons.push({
+  label: "Invite me to speak",
+  href: emailAvailable ? mailto(workWithMe.speakingTopic) : contact.linkedinUrl,
+  external: !emailAvailable,
+});
+buttons.push({
+  label: "Partner with Tech Immigrants",
+  href: emailAvailable ? mailto(workWithMe.partnerTopic) : contact.linkedinUrl,
+  external: !emailAvailable,
+});
+---
+
+<section id="contact" class="px-6 py-16 border-t border-line bg-ink text-cream-soft">
+  <div class="max-w-5xl mx-auto">
+    <h2 class="text-3xl md:text-4xl font-bold leading-tight mb-4 max-w-2xl">
+      {workWithMe.title}
+    </h2>
+    <p class="text-lg text-cream/80 max-w-2xl leading-relaxed mb-8">
+      {workWithMe.text}
+    </p>
+
+    <div class="flex flex-wrap gap-3">
+      {
+        buttons.map((btn) => (
+          <a
+            href={btn.href}
+            target={btn.external ? "_blank" : undefined}
+            rel={btn.external ? "noopener" : undefined}
+            class={
+              btn.primary
+                ? "px-5 py-2.5 rounded-full bg-cream-soft text-ink font-medium hover:bg-terracotta hover:text-cream-soft transition-colors"
+                : "px-5 py-2.5 rounded-full border border-cream/30 text-cream-soft font-medium hover:border-terracotta hover:text-terracotta transition-colors"
+            }
+          >
+            {btn.label}
+          </a>
+        ))
+      }
+    </div>
+  </div>
+</section>

@@ -1,9 +1,8 @@
 /**
  * Central content config for saharpak.dev
  *
- * This is the single source of truth for everything on the site.
- * Edit this file to update copy, links, projects, and stats.
- * You should rarely need to touch the components themselves.
+ * Single source of truth for the homepage. Edit copy, links, projects,
+ * and contact settings here. You should rarely touch the components.
  */
 
 export type ProjectStatus =
@@ -16,27 +15,21 @@ export type ProjectStatus =
   | "Coming Soon"
   | "Idea";
 
-export interface ProjectLink {
+export type Accent = "terracotta" | "teal" | "sage" | "purple";
+
+export interface CTA {
   label: string;
   href: string;
+  external?: boolean;
 }
 
-export interface Project {
+export interface FeaturedProject {
   name: string;
-  description: string;
-  /** One honest line on the motivation behind the project. */
-  why: string;
   status: ProjectStatus;
-  links?: ProjectLink[];
-  /** Optional call to action shown on the card. */
-  cta?: ProjectLink;
-}
-
-export interface ProjectCategory {
-  id: string;
-  title: string;
+  /** One short sentence. Keep it under ~20 words. */
   blurb: string;
-  projects: Project[];
+  accent: Accent;
+  cta?: CTA;
 }
 
 export interface Stat {
@@ -47,19 +40,17 @@ export interface Stat {
 export interface SocialLink {
   label: string;
   href: string;
-  handle: string;
 }
 
 /* -------------------------------------------------------------------------- */
-/* Site-wide / SEO                                                            */
+/* SEO                                                                        */
 /* -------------------------------------------------------------------------- */
 
 export const site = {
   url: "https://saharpak.dev",
-  title: "Sahar Pakseresht — Product Architect, Community Builder, AI Toolmaker",
+  title: "Sahar Pakseresht — Product & Community Builder",
   description:
-    "Personal website of Sahar Pakseresht, founder of Tech Immigrants, building community-powered AI tools for immigrant careers, product builders, automation, and personal growth.",
-  /** Path to the social preview image inside /public. */
+    "Sahar Pakseresht builds small, practical products and communities, including useful AI tools from real problems. Founder of Tech Immigrants.",
   ogImage: "/og.png",
   locale: "en",
   author: "Sahar Pakseresht",
@@ -72,10 +63,41 @@ export const site = {
 export const person = {
   name: "Sahar Pakseresht",
   shortName: "Sahar",
-  roles: ["Product Architect", "Community Builder", "AI Toolmaker"],
-  location: "Espoo, Finland",
-  availability: "Open to partnerships & collaboration",
+  roles: ["Product Manager", "Community Builder", "AI Toolmaker"],
+  location: "Finland",
 };
+
+/**
+ * Profile photo.
+ * Drop a square-ish image at `public/sahar.jpg`, then set `available: true`.
+ * Until then a tasteful placeholder card is shown.
+ */
+export const profile = {
+  photo: "/sahar.png",
+  available: true,
+  alt: "Sahar Pakseresht",
+};
+
+/* -------------------------------------------------------------------------- */
+/* Contact (safe by default: nothing fake is ever shown)                      */
+/* -------------------------------------------------------------------------- */
+
+export const contact = {
+  linkedinUrl: "https://www.linkedin.com/in/saharpak/",
+
+  /** Set a real, configured address, then flip `emailPublished` to true. */
+  publicEmail: "",
+  emailPublished: false,
+
+  /** Set a real Calendly URL to show a "Book a call" button. Empty = hidden. */
+  calendlyUrl: "",
+
+  /** "linkedin" | "email" — controls the primary contact button. */
+  primaryContactMethod: "linkedin" as "linkedin" | "email",
+};
+
+/** True only when a real public email is actually configured. */
+export const emailAvailable = contact.emailPublished && contact.publicEmail.length > 0;
 
 /* -------------------------------------------------------------------------- */
 /* Navigation                                                                 */
@@ -84,11 +106,8 @@ export const person = {
 export const nav = {
   brand: "saharpak.dev",
   links: [
-    { href: "#about", label: "About" },
-    { href: "#tech-immigrants", label: "Tech Immigrants" },
     { href: "#projects", label: "Projects" },
-    { href: "#focus", label: "Now" },
-    { href: "#collaborate", label: "Collaborate" },
+    { href: "#community", label: "Community" },
     { href: "#contact", label: "Contact" },
   ],
 };
@@ -98,317 +117,107 @@ export const nav = {
 /* -------------------------------------------------------------------------- */
 
 export const hero = {
-  eyebrow: "Hi, I'm Sahar",
-  headline: "Building community-powered AI tools for the immigrant tech journey.",
+  greeting: "Hi, I'm Sahar.",
+  headlineAccent: "I build products and communities.",
   subheadline:
-    "I'm Sahar Pakseresht, a product architect and founder of Tech Immigrants. I build practical AI tools, open-source projects, and community products from real problems I see in immigrant, career, founder, and personal growth journeys.",
-  primaryCta: { label: "View my projects", href: "#projects" },
-  secondaryCta: { label: "Partner / collaborate", href: "#collaborate" },
-  tertiaryCta: { label: "Follow my build journey", href: "#focus" },
-  signals: [
-    { label: "Open to partnerships", live: true },
-    { label: "Espoo, Finland", live: false },
-    { label: "Community-led building", live: false },
-  ],
+    "I'm a product manager, community builder, and founder of Tech Immigrants. I build small, practical products around immigrant careers, builders, automation, and personal growth.",
+  now: "Now: building Product Builders and community AI tools.",
+  primaryCta: { label: "See what I'm building", href: "#projects" },
+  secondaryCta: { label: "Let's talk", href: "#contact" },
+  tertiaryCta: {
+    label: "Tech Immigrants",
+    href: "https://www.youtube.com/@TechImmigrants",
+    external: true,
+  },
 };
 
 /* -------------------------------------------------------------------------- */
-/* About                                                                      */
+/* Identity tags                                                              */
 /* -------------------------------------------------------------------------- */
 
-export const about = {
-  heading: "I build from real problems, not abstract ideas.",
-  paragraphs: [
-    "I'm an Iranian-born product builder based in Espoo, Finland. I spent a decade in product architecture and platform work, and I've learned that the best products come from listening closely to people, not from chasing trends.",
-    "I'm the founder of Tech Immigrants, a community for people navigating tech careers across borders. Running it taught me that there are thousands of repeated, unsolved problems hiding in everyday immigrant, career, and founder journeys.",
-    "Today I work where AI, community intelligence, open-source, and automation overlap. I turn the patterns I see in the community into practical tools, then build them in the open.",
-  ],
-  interests: [
-    "AI tools",
-    "Community intelligence",
-    "Open source",
-    "Automation",
-    "Career tooling",
-    "Personal growth tools",
-  ],
-};
+export const identityTags = [
+  "Product Manager",
+  "Community Builder",
+  "AI Toolmaker",
+  "Founder of Tech Immigrants",
+  "Based in Finland",
+];
 
 /* -------------------------------------------------------------------------- */
-/* Tech Immigrants                                                            */
+/* Featured projects (homepage only shows these)                              */
 /* -------------------------------------------------------------------------- */
 
-export const techImmigrants = {
-  heading: "Tech Immigrants is the ecosystem everything connects to.",
-  intro:
-    "Tech Immigrants is a community for people building tech careers and companies across borders. It's where I listen, learn, and discover the real problems worth solving. Most of my products start as something a community member actually needed.",
-  channels: [
-    {
-      label: "YouTube & live sessions",
-      description: "Long-form interviews, AMAs, and live build sessions.",
+export const featuredProjects: FeaturedProject[] = [
+  {
+    name: "Tech Immigrants",
+    status: "Live",
+    blurb: "A 53K+ community helping people navigate tech careers across borders.",
+    accent: "terracotta",
+    cta: {
+      label: "Watch",
       href: "https://www.youtube.com/@TechImmigrants",
+      external: true,
     },
-    {
-      label: "Telegram community",
-      description: "Day-to-day questions, support, and peer help.",
-      href: "https://t.me/TwitterImmigrant",
-    },
-    {
-      label: "LinkedIn & X",
-      description: "Announcements, updates, and build-in-public notes.",
-      href: "https://www.linkedin.com/in/saharpak/",
-    },
-  ],
-  trustNote:
-    "We do not sell community trust or community data. Tech Immigrants exists to help its members first.",
-};
-
-/* -------------------------------------------------------------------------- */
-/* Community Intelligence                                                      */
-/* -------------------------------------------------------------------------- */
-
-export const communityIntelligence = {
-  heading: "My roadmap is backed by real community signals.",
-  intro:
-    "Instead of guessing what to build, I look at what the community actually asks for. These are aggregate signals from years of Tech Immigrants conversations. They point clearly at where useful tools are needed.",
-  stats: [
-    { value: "53,000+", label: "Cross-platform reach" },
-    { value: "134,814", label: "Telegram messages analyzed" },
-    { value: "10,587", label: "Unique contributors" },
-    { value: "66,596", label: "Questions asked" },
-    { value: "27,503", label: "Pain signals" },
-    { value: "2,356", label: "Explicit product / service requests" },
-  ] as Stat[],
-  highlight: "CV & job search is the strongest demand area.",
-  privacyNote:
-    "Insights are aggregate and anonymized. No personal community data is shared or sold.",
-  report: {
-    available: false,
-    label: "Report coming soon",
-    href: "#",
-  },
-};
-
-/* -------------------------------------------------------------------------- */
-/* Projects                                                                    */
-/* -------------------------------------------------------------------------- */
-
-export const projectCategories: ProjectCategory[] = [
-  {
-    id: "career",
-    title: "Immigrant Career Tools",
-    blurb: "Practical tools for the strongest demand area: jobs and careers.",
-    projects: [
-      {
-        name: "CVRoast",
-        status: "Demo",
-        description: "Fast AI feedback for CVs and job applications.",
-        why: "Job seekers needed honest CV feedback without paying for a coach.",
-        links: [{ label: "Visit", href: "https://cvroast.dev" }],
-      },
-      {
-        name: "Tech Immigrants CV Builder",
-        status: "Open Source",
-        description:
-          "Community-built, privacy-first CV builder for tech job seekers.",
-        why: "Turning CVRoast into a contributor-driven, free tool the community owns.",
-        links: [
-          { label: "GitHub", href: "https://github.com/TechImmigrants/cv-builder" },
-        ],
-      },
-      {
-        name: "LinkedIn Optimizer / Job Playbooks",
-        status: "Idea",
-        description:
-          "Guided tooling and playbooks for profiles, outreach, and applications.",
-        why: "The same career questions come up again and again in the community.",
-      },
-    ],
   },
   {
-    id: "builder",
-    title: "Community & Builder Tools",
-    blurb: "Helping community members ship and showcase their own products.",
-    projects: [
-      {
-        name: "Product Builders",
-        status: "Pilot",
-        description:
-          "A platform and Demo Day format where builders submit projects, receive votes, and demo live with advisor feedback.",
-        why: "Builders in the community needed a real stage and honest feedback.",
-      },
-      {
-        name: "Tech Immigrants Demo Day",
-        status: "Pilot",
-        description: "Manual-first showcase for community builders.",
-        why: "Start manual, prove the format works, then automate what matters.",
-      },
-      {
-        name: "Community Dashboard",
-        status: "Demo",
-        description: "n8n-powered community analytics and automation demo.",
-        why: "I needed a trust-safe way to understand community signals at a glance.",
-      },
-    ],
+    name: "Product Builders",
+    status: "Pilot",
+    blurb:
+      "A Demo Day platform where builders share products and get advisor feedback.",
+    accent: "teal",
   },
   {
-    id: "automation",
-    title: "Content & Automation Tools",
-    blurb: "Local-first tooling that keeps content and operations sustainable.",
-    projects: [
-      {
-        name: "Persian Clip Finder",
-        status: "Internal Tool",
-        description:
-          "Local-first tool for finding clips from long Persian videos and turning them into short-form content.",
-        why: "Repurposing long videos by hand was eating too many hours.",
-      },
-      {
-        name: "Trillion / Operator Agent",
-        status: "Internal Tool",
-        description:
-          "Local-first operator agent to help manage projects, content, priorities, and trust-safe monetization workflows.",
-        why: "Running an ecosystem solo needs an operator that respects privacy.",
-      },
-    ],
+    name: "CV Builder / CVRoast",
+    status: "Open Source",
+    blurb: "AI feedback and a privacy-first CV builder for tech job seekers.",
+    accent: "sage",
+    cta: { label: "Visit", href: "https://cvroast.dev", external: true },
   },
   {
-    id: "personal",
-    title: "Personal OS Experiments",
-    blurb: "Local-first experiments in personal growth and well-being.",
-    projects: [
-      {
-        name: "Therapy Insight",
-        status: "Experiment",
-        description:
-          "Local-first therapy notes and reflection companion. Not a medical product.",
-        why: "Reflection works better when notes stay private and on-device.",
-      },
-      {
-        name: "Readiness Coach",
-        status: "Experiment",
-        description:
-          "Oura / readiness dashboard that translates sleep and energy data into daily planning guidance. Not medical advice.",
-        why: "I wanted my energy data to actually shape how I plan a day.",
-      },
-    ],
+    name: "Community Dashboard",
+    status: "Demo",
+    blurb: "n8n-powered community analytics and automation that guide what I build.",
+    accent: "purple",
+  },
+  {
+    name: "Persian Clip Finder",
+    status: "Internal Tool",
+    blurb: "Local-first tool that turns long Persian videos into short clips.",
+    accent: "terracotta",
+  },
+  {
+    name: "Trillion Operator Agent",
+    status: "Internal Tool",
+    blurb: "Local-first operator agent for projects, content, and trust-safe workflows.",
+    accent: "teal",
   },
 ];
 
 /* -------------------------------------------------------------------------- */
-/* Current focus (build-in-public)                                            */
+/* Tech Immigrants proof strip                                                */
 /* -------------------------------------------------------------------------- */
 
-export const currentFocus = {
-  heading: "What I'm focused on right now.",
-  intro: "I build in public. Here's where my energy is going this season.",
-  items: [
-    "Stabilizing my project ecosystem so each tool is easy to maintain.",
-    "Turning Tech Immigrants insights into useful career tools.",
-    "Running Product Builders and Demo Day.",
-    "Building trust-safe monetization around real community value.",
-    "Learning and teaching n8n through real community automation projects.",
-  ],
+export const community = {
+  title: "Tech Immigrants in numbers",
+  stats: [
+    { value: "53K+", label: "Cross-platform reach" },
+    { value: "190+", label: "Episodes" },
+    { value: "400K+", label: "YouTube views" },
+  ] as Stat[],
+  line: "Community insights help me decide what to build next.",
+  privacyNote: "Aggregate and anonymized. Community data is not sold.",
 };
 
 /* -------------------------------------------------------------------------- */
-/* Speaking & events                                                          */
+/* Work with me (final CTA)                                                   */
 /* -------------------------------------------------------------------------- */
 
-export const speaking = {
-  heading: "Speaking & events.",
-  intro:
-    "I host and join sessions on community building, AI tooling, and automation. Links are added as events are confirmed.",
-  items: [
-    {
-      title: "Tech Immigrants live sessions",
-      detail: "Regular community interviews and AMAs.",
-      href: "https://www.youtube.com/@TechImmigrants",
-    },
-    {
-      title: "Product Builders Demo Day",
-      detail: "Live showcase for community builders.",
-      href: "#projects",
-    },
-    {
-      title: "n8n automation events",
-      detail: "Talks and workshops on practical automation.",
-      href: "#contact",
-    },
-    {
-      title: "Workshops & community talks",
-      detail: "Invite me to speak with your community or team.",
-      href: "#collaborate",
-    },
-  ],
-};
-
-/* -------------------------------------------------------------------------- */
-/* Collaboration                                                              */
-/* -------------------------------------------------------------------------- */
-
-export const collaboration = {
-  heading: "Work with me.",
-  intro:
-    "I'm open to partnerships that create genuine value for the community. If that sounds like you, let's talk.",
-  options: [
-    "Partner with Tech Immigrants",
-    "Sponsor useful community events",
-    "Invite me for a workshop or talk",
-    "Collaborate on open-source tools",
-    "Advise Product Builders Demo Day",
-    "Support immigrant tech talent",
-    "Work on community intelligence / product strategy",
-  ],
-  trustNote:
-    "I only collaborate with people and organizations that create real value for the community.",
-  cta: { label: "Start a conversation", href: "#contact" },
-};
-
-/* -------------------------------------------------------------------------- */
-/* Contact & socials                                                          */
-/* -------------------------------------------------------------------------- */
-
-export const contact = {
-  heading: "Let's build something useful together.",
-  intro:
-    "Reach out about partnerships, collaboration, speaking, or anything community and product related. LinkedIn is the fastest way to reach me.",
-  // No public email inbox is configured yet. Keep this false until an inbox
-  // exists, then set it to true and fill in `email` to show a mailto button.
-  emailPublished: false,
-  email: "", // TODO: set a real, configured address before publishing it.
-  // Primary way to get in touch while no public email is configured.
-  primaryAction: {
-    label: "Connect on LinkedIn",
-    href: "https://www.linkedin.com/in/saharpak/",
-  },
-  socials: [
-    {
-      label: "LinkedIn",
-      href: "https://www.linkedin.com/in/saharpak/",
-      handle: "linkedin.com/in/saharpak",
-    },
-    {
-      label: "GitHub",
-      href: "https://github.com/SaharPak",
-      handle: "github.com/SaharPak",
-    },
-    // TODO: add X / Twitter once the real handle is confirmed.
-    {
-      label: "YouTube — Tech Immigrants",
-      href: "https://www.youtube.com/@TechImmigrants",
-      handle: "@TechImmigrants",
-    },
-    {
-      label: "Tech Immigrants Telegram",
-      href: "https://t.me/TwitterImmigrant",
-      handle: "t.me/TwitterImmigrant",
-    },
-    {
-      label: "Product Builders",
-      href: "#projects",
-      handle: "Demo Day & builder platform",
-    },
-  ] as SocialLink[],
+export const workWithMe = {
+  title: "Want to build, partner, or talk?",
+  text: "I'm open to collaborations around community products, AI tools, immigrant tech talent, product strategy, events, and useful sponsorships.",
+  /** Where "Invite me to speak" and "Partner" route when no email is set. */
+  speakingTopic: "Speaking invitation",
+  partnerTopic: "Partnering with Tech Immigrants",
 };
 
 /* -------------------------------------------------------------------------- */
@@ -416,8 +225,13 @@ export const contact = {
 /* -------------------------------------------------------------------------- */
 
 export const footer = {
-  mission:
-    "Community data, real problems, useful tools, trust-safe monetization, impact.",
-  trustNote:
-    "Insights are aggregate and anonymized. No personal community data is shared or sold.",
+  line: "Built by Sahar in Finland.",
 };
+
+/** Public social links (only confirmed, real links). */
+export const socials: SocialLink[] = [
+  { label: "LinkedIn", href: contact.linkedinUrl },
+  { label: "GitHub", href: "https://github.com/SaharPak" },
+  { label: "YouTube — Tech Immigrants", href: "https://www.youtube.com/@TechImmigrants" },
+  { label: "Product Builders", href: "#projects" },
+];

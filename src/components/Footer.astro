@@ -1,17 +1,20 @@
 ---
-import { footer, person, contact } from "../config/site";
+import { footer, socials, contact, emailAvailable, person } from "../config/site";
 const year = new Date().getFullYear();
 ---
 
-<footer class="bg-ink text-cream-soft px-6 py-12 border-t border-cream/10">
-  <div class="max-w-6xl mx-auto space-y-8">
-    <p class="text-cream/80 max-w-2xl leading-relaxed">
-      {footer.mission}
-    </p>
+<footer class="bg-ink text-cream-soft px-6 py-10 border-t border-cream/10">
+  <div
+    class="max-w-5xl mx-auto flex flex-col sm:flex-row sm:items-center sm:justify-between gap-5"
+  >
+    <div>
+      <p class="font-bold">{footer.line}</p>
+      <p class="text-cream/40 text-xs mt-1">© {year} {person.name}</p>
+    </div>
 
-    <div class="flex flex-wrap gap-x-6 gap-y-2 text-sm">
+    <div class="flex flex-wrap gap-x-5 gap-y-2 text-sm">
       {
-        contact.socials.map((link) => (
+        socials.map((link) => (
           <a
             href={link.href}
             target={link.href.startsWith("#") ? undefined : "_blank"}
@@ -22,17 +25,16 @@ const year = new Date().getFullYear();
           </a>
         ))
       }
-    </div>
-
-    <div
-      class="flex flex-wrap items-center justify-between gap-4 pt-6 border-t border-cream/10 text-sm"
-    >
-      <p class="text-cream/60">
-        © {year} {person.name}. Built with Astro + Tailwind, hosted on Cloudflare.
-      </p>
-      <p class="text-cream/40 font-mono text-xs max-w-md sm:text-right">
-        {footer.trustNote}
-      </p>
+      {
+        emailAvailable && (
+          <a
+            href={`mailto:${contact.publicEmail}`}
+            class="text-cream/60 hover:text-terracotta transition-colors"
+          >
+            Email
+          </a>
+        )
+      }
     </div>
   </div>
 </footer>

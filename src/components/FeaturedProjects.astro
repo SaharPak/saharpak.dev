@@ -1,0 +1,71 @@
+---
+import { featuredProjects, type ProjectStatus, type Accent } from "../config/site";
+
+const statusStyles: Record<ProjectStatus, string> = {
+  Live: "bg-sage-deep/15 text-sage-deep",
+  "Open Source": "bg-teal-deep/12 text-teal-deep",
+  Pilot: "bg-terracotta/15 text-terracotta-deep",
+  Demo: "bg-purple-soft/20 text-purple-soft",
+  "Internal Tool": "bg-cream text-muted",
+  Experiment: "bg-cream text-muted",
+  "Coming Soon": "bg-cream text-muted",
+  Idea: "bg-cream text-muted",
+};
+
+const accentBlock: Record<Accent, string> = {
+  terracotta: "bg-gradient-to-br from-terracotta to-terracotta-deep",
+  teal: "bg-gradient-to-br from-teal-deep to-sage-deep",
+  sage: "bg-gradient-to-br from-sage to-sage-deep",
+  purple: "bg-gradient-to-br from-purple-soft to-teal-deep",
+};
+---
+
+<section id="projects" class="px-6 py-14 border-t border-line bg-cream/30">
+  <div class="max-w-5xl mx-auto">
+    <h2 class="text-2xl md:text-3xl font-bold text-ink mb-8">
+      What I'm building.
+    </h2>
+
+    <div class="grid sm:grid-cols-2 lg:grid-cols-3 gap-5">
+      {
+        featuredProjects.map((project) => (
+          <article class="flex flex-col bg-cream-soft border border-line rounded-2xl p-6 hover:shadow-md hover:-translate-y-0.5 transition-all">
+            <div class="flex items-center justify-between mb-4">
+              <div
+                class={`w-11 h-11 rounded-xl flex items-center justify-center text-cream font-extrabold text-lg ${accentBlock[project.accent]}`}
+                aria-hidden="true"
+              >
+                {project.name.charAt(0)}
+              </div>
+              <span
+                class={`text-xs font-mono font-medium px-2.5 py-1 rounded-full ${statusStyles[project.status]}`}
+              >
+                {project.status}
+              </span>
+            </div>
+
+            <h3 class="text-lg font-bold text-ink">{project.name}</h3>
+            <p class="text-sm text-body leading-relaxed mt-1.5 flex-grow">
+              {project.blurb}
+            </p>
+
+            <div class="mt-4">
+              {project.cta ? (
+                <a
+                  href={project.cta.href}
+                  target={project.cta.external ? "_blank" : undefined}
+                  rel={project.cta.external ? "noopener" : undefined}
+                  class="text-sm font-medium text-terracotta-deep hover:text-ink transition-colors"
+                >
+                  {project.cta.label} →
+                </a>
+              ) : (
+                <span class="text-sm font-medium text-muted">Coming soon</span>
+              )}
+            </div>
+          </article>
+        ))
+      }
+    </div>
+  </div>
+</section>

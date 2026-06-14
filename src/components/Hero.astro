@@ -1,60 +1,82 @@
 ---
-import { hero } from "../config/site";
+import { hero, profile, contact, emailAvailable } from "../config/site";
+
+const talkHref = emailAvailable
+  ? `mailto:${contact.publicEmail}`
+  : contact.linkedinUrl;
+const talkLabel = emailAvailable ? hero.secondaryCta.label : "Connect on LinkedIn";
 ---
 
-<section id="top" class="px-6 pt-20 pb-16 md:pt-28 md:pb-24">
-  <div class="max-w-6xl mx-auto">
-    <div class="space-y-7 max-w-4xl">
-      <p
-        class="font-mono text-sm text-terracotta-deep uppercase tracking-wider"
-      >
-        {hero.eyebrow}
-      </p>
-
+<section id="top" class="px-6 pt-14 pb-12 md:pt-20 md:pb-16">
+  <div
+    class="max-w-5xl mx-auto grid md:grid-cols-2 gap-10 md:gap-14 items-center"
+  >
+    <!-- Left: copy + CTAs -->
+    <div class="space-y-6 order-2 md:order-1">
       <h1
-        class="text-4xl sm:text-5xl md:text-6xl font-extrabold tracking-tight text-ink leading-[1.08]"
+        class="text-4xl sm:text-5xl font-extrabold tracking-tight text-ink leading-[1.1]"
       >
-        Building <span class="text-terracotta-deep">community-powered AI tools</span>
-        for the <span class="text-teal-deep">immigrant tech journey</span>.
+        {hero.greeting}<br />
+        <span class="text-terracotta-deep">{hero.headlineAccent}</span>
       </h1>
 
-      <p class="text-lg md:text-xl text-muted max-w-2xl leading-relaxed">
+      <p class="text-lg text-muted leading-relaxed max-w-md">
         {hero.subheadline}
       </p>
 
-      <div class="flex flex-wrap gap-3 pt-2">
+      <div class="flex flex-wrap gap-3 pt-1">
         <a
           href={hero.primaryCta.href}
-          class="px-6 py-3 bg-ink text-cream-soft rounded-full font-medium hover:bg-terracotta-deep transition-colors"
+          class="px-5 py-2.5 bg-ink text-cream-soft rounded-full font-medium hover:bg-terracotta-deep transition-colors"
         >
           {hero.primaryCta.label}
         </a>
         <a
-          href={hero.secondaryCta.href}
-          class="px-6 py-3 border border-ink text-ink rounded-full font-medium hover:bg-ink hover:text-cream-soft transition-colors"
+          href={talkHref}
+          target={emailAvailable ? undefined : "_blank"}
+          rel={emailAvailable ? undefined : "noopener"}
+          class="px-5 py-2.5 border border-ink text-ink rounded-full font-medium hover:bg-ink hover:text-cream-soft transition-colors"
         >
-          {hero.secondaryCta.label}
+          {talkLabel}
         </a>
         <a
           href={hero.tertiaryCta.href}
-          class="px-6 py-3 text-ink rounded-full font-medium hover:text-terracotta-deep transition-colors"
+          target="_blank"
+          rel="noopener"
+          class="px-5 py-2.5 text-ink rounded-full font-medium hover:text-terracotta-deep transition-colors"
         >
           {hero.tertiaryCta.label} →
         </a>
       </div>
 
-      <div class="flex flex-wrap gap-x-6 gap-y-2 pt-8 text-sm text-muted">
-        {
-          hero.signals.map((signal) => (
-            <span class="flex items-center gap-2">
-              {signal.live && (
-                <span class="w-2 h-2 rounded-full bg-sage-deep animate-pulse" />
-              )}
-              {signal.label}
+      <p class="flex items-center gap-2 pt-2 text-sm text-muted">
+        <span class="w-2 h-2 rounded-full bg-sage-deep animate-pulse"></span>
+        {hero.now}
+      </p>
+    </div>
+
+    <!-- Right: photo / placeholder -->
+    <div class="order-1 md:order-2">
+      {
+        profile.available ? (
+          <img
+            src={profile.photo}
+            alt={profile.alt}
+            width="480"
+            height="480"
+            class="w-full max-w-sm mx-auto aspect-square object-cover rounded-3xl shadow-md"
+          />
+        ) : (
+          <div
+            class="w-full max-w-sm mx-auto aspect-square rounded-3xl shadow-md flex flex-col items-center justify-center text-center p-8 bg-gradient-to-br from-terracotta/30 via-cream to-sage/40 border border-line"
+          >
+            <span class="text-6xl font-extrabold text-terracotta-deep/80">S</span>
+            <span class="mt-4 font-mono text-xs uppercase tracking-wider text-muted">
+              Photo coming soon
             </span>
-          ))
-        }
-      </div>
+          </div>
+        )
+      }
     </div>
   </div>
 </section>
